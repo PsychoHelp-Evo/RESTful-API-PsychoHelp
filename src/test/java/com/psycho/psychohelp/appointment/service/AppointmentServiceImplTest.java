@@ -81,6 +81,7 @@ public class AppointmentServiceImplTest {
         assertNotNull(appointmentService.getAll());
     }
 
+    //Este test no esta funcionando por q no encuentra los Id de pacientes y psicologos
     @Test
     public void create() {
         Mockito.when(appointmentRepository.findByPatientIdAndPsychologistId(1L,2L)).thenReturn(Arrays.asList(request));
@@ -88,16 +89,19 @@ public class AppointmentServiceImplTest {
         assertNotNull(appointmentService.create(new Appointment(), 2L, 1L));
     }
 
+    //Este test no esta funcionando por q no encuentra le Id de appointment
     @Test
     public void getById() {
         Mockito.when(appointmentRepository.findById(3L)).thenReturn(Optional.of(new Appointment()));
         assertNotNull(appointmentService.getById(3L));
     }
 
+
+    //Este test no esta funcionando por q no encuentra le Id de appointment
     @Test
     public void update() {
         Mockito.when(appointmentRepository.save(Mockito.any(Appointment.class))).thenReturn(request);
-        assertNotNull(appointmentService.update(1L, new Appointment()));
+        assertNotNull(appointmentService.update(3L, new Appointment()));
     }
 
     @Test
@@ -124,6 +128,7 @@ public class AppointmentServiceImplTest {
         assertNotNull(appointmentService.getPatientsByPsychologistId(2L));
     }
 
+    //Este test no esta funcionando por q no encuentra le Id de appointment
     @Test
     public void delete() {
         Mockito.when(appointmentRepository.findById(3L)).thenReturn(Optional.of(new Appointment()));

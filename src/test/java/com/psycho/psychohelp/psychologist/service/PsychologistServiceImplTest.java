@@ -95,6 +95,7 @@ public class PsychologistServiceImplTest {
         assertNotNull(psychologistService.getByName("name"));
     }
 
+    ///Este test no esta funcionando por q no encuentra le Id del psicologo
     @Test
     public void update() {
         Mockito.when(psychologistRepository.save(Mockito.any(Psychologist.class))).thenReturn(request);
