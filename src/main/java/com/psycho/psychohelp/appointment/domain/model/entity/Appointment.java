@@ -15,10 +15,10 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @With
 @Entity
-@Table(name ="appointments")
+@Table(name = "appointments")
 public class Appointment extends AuditModel {
 
     @Id
@@ -62,5 +62,17 @@ public class Appointment extends AuditModel {
     @JoinColumn(name = "psychologist_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Psychologist psychologist;
+
+    public Appointment(Long id, String meetUrl, String motive, String personalHistory, String testRealized, String treatment, String scheduleDate, Patient patient, Psychologist psychologist) {
+        this.id = id;
+        this.meetUrl = meetUrl;
+        Motive = motive;
+        PersonalHistory = personalHistory;
+        TestRealized = testRealized;
+        Treatment = treatment;
+        ScheduleDate = scheduleDate;
+        this.patient = patient;
+        this.psychologist = psychologist;
+    }
 }
 

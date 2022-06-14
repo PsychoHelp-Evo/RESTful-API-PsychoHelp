@@ -81,9 +81,9 @@ public class PsychologistServiceImpl implements PsychologistService {
 
     @Override
     public Psychologist update(Long psychologistId, Psychologist request) {
-//        Set<ConstraintViolation<Psychologist>> violations = validator.validate(request);
-//        if(!violations.isEmpty())
-//            throw new ResourceValidationException(ENTITY, violations);
+        //Set<ConstraintViolation<Psychologist>> violations = validator.validate(request);
+        //if(!violations.isEmpty())
+            //throw new ResourceValidationException(ENTITY, violations);
 
         return psychologistRepository.findById(psychologistId).map(psychologist ->
                 psychologistRepository.save(
