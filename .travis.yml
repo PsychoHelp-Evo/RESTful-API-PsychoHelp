@@ -1,4 +1,4 @@
-lenguaje: java
+language: java
 jdk:
   - opendjdk11
 script: "./mvnw clean install"
