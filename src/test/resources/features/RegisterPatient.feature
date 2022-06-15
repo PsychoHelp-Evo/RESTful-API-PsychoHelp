@@ -7,5 +7,5 @@ Feature: Register Patient Functionality
     Then I should be able to see my newly account
 
     Examples:
-      | firstname | lastname | email           | password      | phone       | gender             |
-      | "Luis"    | "Panta"  |"fano@gmail.com" | "12345679"    | "987425689" | "Masculino"        |
+      | firstname | lastname | email                 | password      | phone       | gender             |
+      | "Luis"    | "Panta"  |"fanoqwerty@gmail.com" | "12345679"    | "987425689" | "Masculino"        |
