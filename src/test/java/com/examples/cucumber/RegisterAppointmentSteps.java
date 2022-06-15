@@ -45,7 +45,7 @@ public class RegisterAppointmentSteps {
     }
     @And("I schedule an appointment with url {string}, motive {string}, history {string}, test {string}, treatment {string} and date {string}")
     public void i_schedule_an_appointment_with_url_motive_history_test_treatment_and_date(String meetUrl, String motive, String history, String test, String treatment, String date) {
-        String appointmentUrl=url + "/appointment/"+1L;
+        String appointmentUrl=url + "/appointment/patient/"+1L + "/psychologist/"+1L;
         Psychologist psychologist = restTemplate.getForObject(url+"/psychologists/"+1L,Psychologist.class);
         Patient patient = restTemplate.getForObject(url+"/patients/"+1L, Patient.class);
         Status status_1 = Status.APPROVED;
