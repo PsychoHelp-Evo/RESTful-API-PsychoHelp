@@ -26,6 +26,9 @@ public class PutAppointmentSteps {
     private RestTemplate restTemplate = new RestTemplate();
     private String url="http://localhost:8081/api/v1";
     private String message="";
+
+    private Long masterId=16L;
+
     Appointment appointment;
     Long appointmentId = randomLong();
 
@@ -34,30 +37,35 @@ public class PutAppointmentSteps {
         return generatedLong;
     }
 
-    @Given("I want to put a appointment")
-    public void iWantToPutAAppointment() {
+    @Given("I want to reschedule an appointment")
+    public void i_want_to_reschedule_an_appointment() {
         String appointmentUrl=url + "/appointment";
         String getEndpoint=restTemplate.getForObject(appointmentUrl, String.class);
         log.info(getEndpoint);
         assertTrue(!getEndpoint.isEmpty());
     }
 
-    @And("I put a publication with with meetUrl <meetUrl>, motive <motive>, personalHistory <personalHistory>, testRealized <testRealized>, treatment <treatment>, scheduledDate <scheduledDate> and status<status>")
-    public void iPutAPublicationWithWithMeetUrlMeetUrlMotiveMotivePersonalHistoryPersonalHistoryTestRealizedTestRealizedTreatmentTreatmentScheduledDateScheduledDateAndStatusStatus(String meetUrl, String motive, String history, String test, String treatment, String date) {
-        String appointmentUrl=url + "/appointment/patient/"+1L + "/psychologist/"+1L;
-        Psychologist psychologist = restTemplate.getForObject(url+"/psychologists/"+1L,Psychologist.class);
-        Patient patient = restTemplate.getForObject(url+"/patients/"+1L, Patient.class);
+    @And("I reschedule an appointment with meetUrl {string}, motive {string}, history {string}, test {string}, treatment {string} and date {string}")
+    public void i_reschedule_an_appointment_with_url_motive_history_test_treatment_and_date(String meetUrl, String motive, String history, String test, String treatment, String date) {
+        String appointmentUrl=url + "/appointment/"+masterId;
+        String guardado= appointmentUrl;
+        Appointment oldAppointment = restTemplate.getForObject(appointmentUrl,Appointment.class);
+        Psychologist psychologist = oldAppointment.getPsychologist();
+        Patient patient = oldAppointment.getPatient();
+        //Psychologist psychologist = restTemplate.getForObject(url+"/psychologists/"+1L,Psychologist.class);
+        //Patient patient = restTemplate.getForObject(url+"/patients/"+1L, Patient.class);
         Status status = Status.RESCHEDULED;
 
-        Appointment newAppointment = new Appointment(appointmentId, meetUrl, motive, history, test, treatment, date, status, patient,psychologist);
-        appointment=restTemplate.patchForObject(appointmentUrl,newAppointment,Appointment.class);
+        Appointment newAppointment = new Appointment(masterId, meetUrl, motive, history, test, treatment, date, status, patient, psychologist);
+        restTemplate.put(appointmentUrl,newAppointment,Appointment.class);
+        appointment = restTemplate.getForObject(guardado,Appointment.class);
         log.info(appointment.getId());
         assertNotNull(appointment);
     }
 
-    @Then("I should be able to reeschedule my appointment")
-    public void iShouldBeAbleToReescheduleMyAppointment() {
-        String appointmentUrl=url + "/appointment/"+appointmentId;
+    @Then("I should be able to see my appointment rescheduled")
+    public void i_should_be_able_to_see_my_appointment_rescheduled() {
+        String appointmentUrl=url + "/appointment/"+masterId;
         try{
             appointment=restTemplate.getForObject(appointmentUrl,Appointment.class);
             log.info(appointment.getId());

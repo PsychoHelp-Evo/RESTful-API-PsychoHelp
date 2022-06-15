@@ -1,11 +1,11 @@
-Feature: Put a Appointment Functionality
+Feature: Put an Appointment Functionality
 
 
-  Scenario Outline: As a patient i want to put an appointment in psychohelp
-    Given I want to put a appointment
-    And I put a publication with with meetUrl <meetUrl>, motive <motive>, personalHistory <personalHistory>, testRealized <testRealized>, treatment <treatment> and scheduledDate <scheduledDate>
-    Then I should be able to reeschedule my appointment
+  Scenario Outline: As a patient i want to reschedule an appointment in psychohelp .
+    Given I want to reschedule an appointment
+    And I reschedule an appointment with meetUrl <meetUrl>, motive <motive>, history <history>, test <test>, treatment <treatment> and date <date>
+    Then I should be able to see my appointment rescheduled
 
     Examples:
-      | meetUrl        | motive              | personalHistory   | testRealized       | treatment | scheduledDate  |
-      | "meet.com"     | "Appointment PUT"   | "None"            | "test.com"         |  "Pills"  |   "15/05/22"   |
+      | meetUrl    | motive              | history   | test       | treatment | date     |
+      | "meet.com" | "Appointment 2"     | "None"    | "test.com" | "Pills"   | "Today"  |
