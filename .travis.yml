@@ -1,8 +1,8 @@
 language: java
 jdk:
   - openjdk11
-script: "./mvnw clean install"
+script: "./mvn clean install"
 notifications:
   email: joset2804@hotmail.com
 before_install:
-  - chmod +x mvnw
+  - chmod +x mvn
