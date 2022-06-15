@@ -7,5 +7,5 @@ Feature: Register Psychologist Functionality
     Then I should be able to see my newly psychologist account
 
     Examples:
-      | name   | dni         | email           | password      | phone       | specialization | formation              | about               | genre           | session    | cmp     |
-      | "Luis" | "76139991"  |"fano@gmail.com" | "12345679"    | "987425689" | "Ansiedad"     | "Universitaria"        | "Soy una prueba"    |  "Masculino"    | "Virtual"  | "1235"  |
+      | name   | dni         | email                  | password      | phone       | specialization | formation              | about               | genre           | session    | cmp     |
+      | "Luis" | "76139900"  |"fanoexample@gmail.com" | "12345670"    | "987425689" | "Ansiedad"     | "Universitaria"        | "Soy una prueba"    |  "Masculino"    | "Virtual"  | "1235"  |

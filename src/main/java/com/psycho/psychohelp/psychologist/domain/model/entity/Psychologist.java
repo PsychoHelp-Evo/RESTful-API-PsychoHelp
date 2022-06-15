@@ -2,6 +2,7 @@ package com.psycho.psychohelp.psychologist.domain.model.entity;
 
 import com.psycho.psychohelp.shared.domain.model.AuditModel;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -94,6 +95,7 @@ public class Psychologist extends AuditModel {
     @NotNull
     private Boolean fresh;
 
+    @Nullable
     @OneToMany(mappedBy = "psychologist")
     private List<PsychologistSchedule> psychologistSchedules;
 
