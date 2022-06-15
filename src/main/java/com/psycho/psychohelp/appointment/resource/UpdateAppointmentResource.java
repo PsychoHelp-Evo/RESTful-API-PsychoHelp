@@ -1,5 +1,6 @@
 package com.psycho.psychohelp.appointment.resource;
 
+import com.psycho.psychohelp.appointment.domain.model.entity.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ public class UpdateAppointmentResource {
     private String TestRealized;
     private String Treatment;
     private String ScheduleDate;
+    private Status status;
 //    private Long psychologist_id;
 //    private Long patient_id;
 }

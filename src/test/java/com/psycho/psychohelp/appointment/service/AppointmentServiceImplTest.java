@@ -1,6 +1,7 @@
 package com.psycho.psychohelp.appointment.service;
 
 import com.psycho.psychohelp.appointment.domain.model.entity.Appointment;
+import com.psycho.psychohelp.appointment.domain.model.entity.Status;
 import com.psycho.psychohelp.appointment.domain.persistance.AppointmentRepository;
 import com.psycho.psychohelp.patient.domain.model.entity.Patient;
 import com.psycho.psychohelp.patient.domain.persistence.PatientRepository;
@@ -62,7 +63,7 @@ public class AppointmentServiceImplTest {
         Date date = new Date(1980, 12, 3);
         patient = new Patient(1L, "jose", "ivan", "strtg@gmail.com", "qweerwrrtyy", "987654321", "qweerwr", "qweerwr", "qweerwr");
         psychologist = new Psychologist(2L, "name", "1234354", date, "email@gmail.com", "password123", "9823892", "specialization", "formation", "about", "male", "sessionType", "image", "cmp", true, false);
-        request = new Appointment(3L, "https://meet.google.com/zxw-srkm-ewz", "motive", "Personal History", "Test Realized", "Treatment", "ScheduleDate", patient, psychologist);
+        request = new Appointment(3L, "https://meet.google.com/zxw-srkm-ewz", "motive", "Personal History", "Test Realized", "Treatment", "ScheduleDate", Status.APPROVED, patient, psychologist);
     }
 
     @Before

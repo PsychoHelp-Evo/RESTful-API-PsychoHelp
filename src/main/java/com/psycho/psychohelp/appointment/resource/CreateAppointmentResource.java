@@ -1,5 +1,6 @@
 package com.psycho.psychohelp.appointment.resource;
 
+import com.psycho.psychohelp.appointment.domain.model.entity.Status;
 import com.psycho.psychohelp.patient.domain.model.entity.Patient;
 import com.psycho.psychohelp.psychologist.domain.model.entity.Psychologist;
 import lombok.Getter;
@@ -37,4 +38,6 @@ public class CreateAppointmentResource {
     @NotBlank
     @Size(max = 20)
     private String ScheduleDate;
+    @NotNull
+    private Status status;
 }

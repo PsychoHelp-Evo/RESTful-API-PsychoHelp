@@ -1,6 +1,7 @@
 package com.psycho.psychohelp.appointment.service;
 
 import com.psycho.psychohelp.appointment.domain.model.entity.Appointment;
+import com.psycho.psychohelp.appointment.domain.model.entity.Status;
 import com.psycho.psychohelp.appointment.domain.persistance.AppointmentRepository;
 import com.psycho.psychohelp.appointment.domain.service.AppointmentService;
 import com.psycho.psychohelp.patient.domain.model.entity.Patient;
@@ -70,16 +71,33 @@ public class AppointmentServiceImpl implements AppointmentService {
 //
 //        if(!violations.isEmpty())
 //            throw new ResourceValidationException(ENTITY, violations);
-
-        return appointmentRepository.findById(appointmentId).map(appointment ->
-                        appointmentRepository.save(
-                                appointment.withMeetUrl(request.getMeetUrl())
-                                        .withScheduleDate(request.getScheduleDate())
-                                        .withPersonalHistory(request.getPersonalHistory())
-                                        .withMotive(request.getMotive())
-                                        .withTestRealized(request.getTestRealized())
-                                        .withTreatment(request.getTreatment())))
+        //allow an appointment can only be updated 2 times
+        Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, appointmentId));
+
+        if(appointment.getStatus() == Status.APPROVED) {
+            appointment.setMeetUrl(request.getMeetUrl());
+            appointment.setMotive(request.getMotive());
+            appointment.setPersonalHistory(request.getPersonalHistory());
+            appointment.setTestRealized(request.getTestRealized());
+            appointment.setTreatment(request.getTreatment());
+            appointment.setScheduleDate(request.getScheduleDate());
+            appointment.setStatus(Status.RESCHEDULED);
+            return appointmentRepository.save(appointment);
+        } else {
+            throw new ResourceValidationException(ENTITY, "Appointment can only be updated 1 time");
+        }
+
+//            return appointmentRepository.findById(appointmentId).map(appointment ->
+//                        appointmentRepository.save(
+//                                appointment.withMeetUrl(request.getMeetUrl())
+//                                        .withScheduleDate(request.getScheduleDate())
+//                                        .withPersonalHistory(request.getPersonalHistory())
+//                                        .withMotive(request.getMotive())
+//                                        .withTestRealized(request.getTestRealized())
+//                                        .withTreatment(request.getTreatment())))
+//                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, appointmentId)
+//           );
     }
 
     @Override

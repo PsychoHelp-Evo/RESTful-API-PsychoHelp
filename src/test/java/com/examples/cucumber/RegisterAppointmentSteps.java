@@ -1,6 +1,7 @@
 package com.examples.cucumber;
 
 import com.psycho.psychohelp.appointment.domain.model.entity.Appointment;
+import com.psycho.psychohelp.appointment.domain.model.entity.Status;
 import com.psycho.psychohelp.patient.domain.model.entity.Patient;
 import com.psycho.psychohelp.psychologist.domain.model.entity.Psychologist;
 import com.psycho.psychohelp.publication.domain.model.entity.Publication;
@@ -43,12 +44,12 @@ public class RegisterAppointmentSteps {
         assertTrue(!getEndpoint.isEmpty());
     }
     @And("I schedule an appointment with url {string}, motive {string}, history {string}, test {string}, treatment {string} and date {string}")
-    public void i_schedule_an_appointment_with_url_motive_history_test_treatment_and_date(String meetUrl, String motive, String history, String test, String treatment, String date) {
+    public void i_schedule_an_appointment_with_url_motive_history_test_treatment_and_date(String meetUrl, String motive, String history, String test, String treatment, String date, Status status) {
         String appointmentUrl=url + "/appointment/patient/"+1L + "/psychologist/"+1L;
         Psychologist psychologist = restTemplate.getForObject(url+"/psychologists/"+1L,Psychologist.class);
         Patient patient = restTemplate.getForObject(url+"/patients/"+1L, Patient.class);
 
-        Appointment newAppointment = new Appointment(appointmentId, meetUrl, motive, history, test, treatment, date, patient,psychologist);
+        Appointment newAppointment = new Appointment(appointmentId, meetUrl, motive, history, test, treatment, date, status, patient,psychologist);
         appointment=restTemplate.postForObject(appointmentUrl,newAppointment,Appointment.class);
         log.info(appointment.getId());
         assertNotNull(appointment);
