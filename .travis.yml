@@ -1,8 +1,7 @@
 language: java
-jdk:
-  - openjdk11
-script: "./mvnw clean install"
+jdk: openjdk11
 notifications:
-  email: joset2804@hotmail.com
-before_install:
-  - chmod +x mvnw
+  email: joset2804@gmail.com
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: mvn test
