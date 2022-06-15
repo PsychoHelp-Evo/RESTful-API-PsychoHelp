@@ -8,4 +8,4 @@ Feature: Register an Appointment Functionality
 
     Examples:
       | url        | motive              | history   | test       | treatment | date     |
-      | "meet.com" | "Appointment 1"     | "None"    | "test.com" | "Pills "  |   "Today"|
+      | "meet.com" | "Appointment 1"     | "None"    | "test.com" | "Pills"   | "Today"  |
