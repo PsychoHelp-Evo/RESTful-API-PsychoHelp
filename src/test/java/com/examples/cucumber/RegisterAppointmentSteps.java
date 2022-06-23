@@ -26,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RegisterAppointmentSteps {
 
     private RestTemplate restTemplate = new RestTemplate();
-    private String url="http://localhost:8081/api/v1";
-    private String message="";
+    private String url = "http://localhost:8081/api/v1";
+    private String message = "";
     Appointment appointment;
     Long appointmentId = randomLong();
 
@@ -36,35 +36,69 @@ public class RegisterAppointmentSteps {
         return generatedLong;
     }
 
-    @Given("I want to schedule")
-    public void i_want_to_schedule() {
-        String appointmentUrl=url + "/appointment";
-        String getEndpoint=restTemplate.getForObject(appointmentUrl, String.class);
+    @Given("I want to register an appointment")
+    public void iWantToRegisterAnAppointment() {
+        String appointmentUrl = url + "/appointment/" + 10L;
+        String getEndpoint = restTemplate.getForObject(appointmentUrl, String.class);
         log.info(getEndpoint);
         assertTrue(!getEndpoint.isEmpty());
     }
+    @And("The psychologist with {long} is active")
+    public void thePsychologistWithIdIsActive(Long id) {
+        String psychologistUrl = url + "/psychologists/" + id;
+        Psychologist psychologist = restTemplate.getForObject(psychologistUrl, Psychologist.class);
+        if(psychologist.getActive()) {
+            log.info("The psychologist is active");
+        } else {
+            log.info("The psychologist is not active");
+        }
+    }
+    @Then("I should be able to register an appointment")
+    public void iShouldBeAbleToRegisterAnAppointment() {
+        String psychologistUrl = url + "/psychologists/" + 1L;
+        try{
+            Psychologist getPsychologistById = restTemplate.getForObject(psychologistUrl, Psychologist.class, 1L);
+            log.info(getPsychologistById);
+        } catch (RestClientException e) {
+            log.info("The psychologist is not active");
+        }
+    }
+
+    @Given("I want to schedule")
+    public void i_want_to_schedule() {
+        String appointmentUrl = url + "/appointment";
+        String getEndpoint = restTemplate.getForObject(appointmentUrl, String.class);
+        log.info(getEndpoint);
+        assertTrue(!getEndpoint.isEmpty());
+    }
+
     @And("I schedule an appointment with url {string}, motive {string}, history {string}, test {string}, treatment {string} and date {string}")
     public void i_schedule_an_appointment_with_url_motive_history_test_treatment_and_date(String meetUrl, String motive, String history, String test, String treatment, String date) {
-        String appointmentUrl=url + "/appointment/patient/"+1L + "/psychologist/"+1L;
-        Psychologist psychologist = restTemplate.getForObject(url+"/psychologists/"+1L,Psychologist.class);
-        Patient patient = restTemplate.getForObject(url+"/patients/"+1L, Patient.class);
+        String appointmentUrl = url + "/appointment/patient/" + 1L + "/psychologist/" + 1L;
+        Psychologist psychologist = restTemplate.getForObject(url + "/psychologists/" + 1L, Psychologist.class);
+        Patient patient = restTemplate.getForObject(url + "/patients/" + 1L, Patient.class);
         Status status_1 = Status.APPROVED;
 
-        Appointment newAppointment = new Appointment(appointmentId, meetUrl, motive, history, test, treatment, date, status_1, patient,psychologist);
-        appointment=restTemplate.postForObject(appointmentUrl,newAppointment,Appointment.class);
+        Appointment newAppointment = new Appointment(appointmentId, meetUrl, motive, history, test, treatment, date, status_1, patient, psychologist);
+        appointment = restTemplate.postForObject(appointmentUrl, newAppointment, Appointment.class);
         log.info(appointment.getId());
         assertNotNull(appointment);
     }
+
     @Then("I should be able to see my newly appointment")
     public void i_should_be_able_to_see_my_newly_appointment() {
-        String appointmentUrl=url + "/appointment/"+3L;
-        try
-        {
-            Appointment getAppointmentById=restTemplate.getForObject(appointmentUrl, Appointment.class, appointment.getId());
+        String appointmentUrl = url + "/appointment/" + 3L;
+        try {
+            Appointment getAppointmentById = restTemplate.getForObject(appointmentUrl, Appointment.class, appointment.getId());
             log.info(getAppointmentById);
-        }catch(RestClientException e){
-            message="";
+        } catch (RestClientException e) {
+            message = "";
         }
-        assertEquals("",message);
+        assertEquals("", message);
     }
+
+
+
+
+
 }

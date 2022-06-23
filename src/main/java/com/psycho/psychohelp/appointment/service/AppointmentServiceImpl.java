@@ -61,7 +61,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 //        if(!violations.isEmpty())
 //            throw new ResourceValidationException(ENTITY, violations);
         request.setPatient(patient);
-        request.setPsychologist(psychologist);
+        if(psychologist.getActive()){
+            request.setPsychologist(psychologist);
+        } else {
+            throw new ResourceValidationException(ENTITY, "Psychologist is not active");
+        }
         return appointmentRepository.save(request);
     }
 
