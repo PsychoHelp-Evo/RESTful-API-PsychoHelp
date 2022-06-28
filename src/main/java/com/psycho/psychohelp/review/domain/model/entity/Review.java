@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @With
 @Entity
 @Table(name="reviews")
@@ -43,4 +42,12 @@ public class Review {
     @JoinColumn(name = "appointment_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Appointment appointment;
+
+    public Review(Long id, String comment, Patient patient, Psychologist psychologist, Appointment appointment) {
+        this.id = id;
+        this.comment = comment;
+        this.patient = patient;
+        this.psychologist = psychologist;
+        this.appointment = appointment;
+    }
 }

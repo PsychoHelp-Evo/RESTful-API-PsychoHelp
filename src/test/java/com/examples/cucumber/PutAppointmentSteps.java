@@ -79,38 +79,4 @@ public class PutAppointmentSteps {
         }
         assertEquals("",message);
     }
-
-    @Given("I want to reschedule an appointment for a second time")
-    public void iWantToRescheduleAnAppointmentForASecondTime() {
-        String appointmentUrl=url+"/appointment/"+masterId;
-        String getEndpoint=restTemplate.getForObject(appointmentUrl, String.class);
-        log.info(getEndpoint);
-        assertTrue(!getEndpoint.isEmpty());
-    }
-
-    @And("I reschedule the same appointment with meetUrl {string}, motive {string}, history {string}, test {string}, treatment {string} and date {string}")
-    public void iRescheduleTheSameAppointmentWithMeetUrlMeetUrlMotiveMotiveHistoryHistoryTestTestTreatmentTreatmentAndDateDate(String meetUrl, String motive, String history, String test, String treatment, String date) {
-        String appointmentUrl=url +"/appointment/"+masterId;
-        String savedUrl = appointmentUrl;
-        Appointment oldAppointment = restTemplate.getForObject(appointmentUrl,Appointment.class);
-        Status actualStatus = oldAppointment.getStatus();
-        if(actualStatus.equals(Status.RESCHEDULED)){
-            message="Appointment already rescheduled";
-            log.info(message);
-        }
-    }
-
-    @Then("I shouldn't be able to see my appointment rescheduled")
-    public void iShouldnTBeAbleToSeeMyAppointmentRescheduled() {
-        String appointmentUrl=url+"/appointment/"+masterId;
-        try{
-            appointment=restTemplate.getForObject(appointmentUrl,Appointment.class);
-            log.info(appointment.getId());
-            assertNotNull(appointment);
-        }catch (Exception e){
-            message=e.getMessage();
-            log.info(message);
-        }
-        assertEquals("Appointment already rescheduled",message);
-    }
 }
