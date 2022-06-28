@@ -21,8 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final static String ENTITY = "Review";
 
-    @Autowired
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
     private PatientRepository patientRepository;
@@ -32,6 +31,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
 
 
     @Override

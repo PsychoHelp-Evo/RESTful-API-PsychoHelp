@@ -7,9 +7,10 @@ import com.psycho.psychohelp.review.resource.UpdateReviewResource;
 import com.psycho.psychohelp.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ReviewMapper {
+public class ReviewMapper implements Serializable {
 
     @Autowired
     private EnhancedModelMapper mapper;

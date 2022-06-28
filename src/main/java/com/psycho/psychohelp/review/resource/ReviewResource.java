@@ -11,7 +11,7 @@ import lombok.Setter;
 public class ReviewResource {
     private Long id;
     private String comment;
-    private PsychologistResource psychologistId;
-    private PatientResource patientId;
-    private AppointmentResource appointmentId;
+    private PsychologistResource psychologist;
+    private PatientResource patient;
+    private AppointmentResource appointment;
 }
