@@ -56,6 +56,12 @@ public class AppointmentController {
         return mapper.toResource(appointmentService.getByPatientId(patientId));
     }
 
+    @Operation(summary = "Change the status of an existent appointment culminated", description = "Change the status of an existent appointment culminated")
+    @PutMapping("/culminate/{appointmentId}")
+    public AppointmentResource changeStatusCulminated(@PathVariable Long appointmentId) {
+        return mapper.toResource(appointmentService.culminateAppointment(appointmentId));
+    }
+
     @Operation(summary = "Get all appointments by psychologistId", description = "Get all appointments by psychologistId")
     @GetMapping("/psychologist/{psychologistId}")
     public List<AppointmentResource> getAllAppointmentsByPsychologistId(@PathVariable Long psychologistId) {

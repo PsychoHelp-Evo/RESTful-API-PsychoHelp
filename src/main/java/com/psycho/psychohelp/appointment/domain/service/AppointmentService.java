@@ -13,6 +13,7 @@ public interface AppointmentService {
     Appointment getById(Long appointmentId);
     Appointment create(Appointment request, Long psychologistId, Long patientId);
     Appointment update(Long appointmentId, Appointment request);
+    Appointment culminateAppointment(Long appointmentId);
     List<Appointment> getByPsychologistId(Long psychologistId);
     List<Appointment> getByPatientId(Long patientId);
     List<Appointment> getByPatientIdAndPsychologistId(Long patientId, Long psychologistId);

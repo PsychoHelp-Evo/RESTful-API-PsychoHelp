@@ -71,8 +71,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment update(Long appointmentId, Appointment request) {
-//        Set<ConstraintViolation<Appointment>> violations = validator.validate(request);
-//
+//        Set<ConstraintViolation<Appointment>> violations = validator.validate(request);//
 //        if(!violations.isEmpty())
 //            throw new ResourceValidationException(ENTITY, violations);
         //allow an appointment can only be updated 2 times
@@ -88,7 +87,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             appointment.setScheduleDate(request.getScheduleDate());
             appointment.setStatus(Status.RESCHEDULED);
             return appointmentRepository.save(appointment);
-        } else {
+        }
+        else {
             throw new ResourceValidationException(ENTITY, "Appointment can only be updated 1 time");
         }
 
@@ -103,6 +103,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 //                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, appointmentId)
 //           );
     }
+
+    @Override
+    public Appointment culminateAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, appointmentId));
+
+        appointment.setStatus(Status.COMPLETED);
+        return appointmentRepository.save(appointment);
+    }
+
 
     @Override
     public List<Appointment> getByPsychologistId(Long psychologistId) {
